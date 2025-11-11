@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero" style="padding:2rem 1.25rem;">
+  <h1 style="font-size:2.2rem; margin-bottom:0.25rem;">AutoAccess</h1>
+  <p class="muted" style="max-width:70ch; margin:0;">
+    Automate onboarding/offboarding in seconds — upload HR spreadsheets, create accounts, assign roles, send welcome emails,
+    and maintain a full audit trail. Bright, fast, and reliable.
+  </p>
+  <p style="margin-top:0.75rem;">
+    <a href="{{ url_for('login') }}" role="button" style="background: var(--brand-1); border-color: var(--brand-1);">Admin Login</a>
+    <a href="{{ url_for('download_sample') if session.get('is_admin') else url_for('login') }}" role="button" class="secondary">Try Sample</a>
+  </p>
+</section>
+
+<div class="grid" style="margin-top:1rem;">
+  <article class="metric blue">
+    <hgroup>
+      <h2>98% Faster</h2>
+      <p>20 min ➜ 30 sec</p>
+    </hgroup>
+    <p>Slash IT workload with end-to-end automation and instant feedback.</p>
+  </article>
+  <article class="metric green">
+    <hgroup>
+      <h2>95% Fewer Errors</h2>
+      <p>8% ➜ &lt;0.5%</p>
+    </hgroup>
+    <p>Validation, duplicate checks, and clear, actionable error logs.</p>
+  </article>
+  <article class="metric amber">
+    <hgroup>
+      <h2>Auditable</h2>
+      <p>SQLite-backed logs</p>
+    </hgroup>
+    <p>Every action recorded with timestamps for compliance and review.</p>
+  </article>
+</div>
+
+<section style="margin-top:1rem;">
+  <h3>How it works</h3>
+  <ol>
+    <li>Admin logs in and uploads <code>new_hires.xlsx</code> or <code>.csv</code></li>
+    <li>AutoAccess validates rows and creates or deactivates accounts</li>
+    <li>Welcome and summary emails are simulated and logged</li>
+    <li>Dashboard updates instantly with results</li>
+  </ol>
+</section>
+{% endblock %}
+
+

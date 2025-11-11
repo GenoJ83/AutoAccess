@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-card">
+  <h2>Enter Login Code</h2>
+  <p class="muted">We sent a one-time code to {{ email }}.</p>
+  <form method="post">
+    <label>
+      6-digit Code
+      <input type="text" name="code" pattern="^[0-9]{6}$" inputmode="numeric" maxlength="6" required placeholder="123456">
+    </label>
+    <button type="submit" style="background: var(--brand-1); border-color: var(--brand-1); width: 100%;">Verify</button>
+  </form>
+</div>
+{% endblock %}
+

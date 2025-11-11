@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-card">
+  <h2>Employee Login</h2>
+  <p class="muted">Enter your company email to receive a one-time login code.</p>
+  <form method="post">
+    <label>
+      Company Email
+      <input type="email" name="email" required placeholder="you@company.com">
+    </label>
+    <button type="submit" style="background: var(--brand-1); border-color: var(--brand-1); width: 100%;">Send Code</button>
+  </form>
+</div>
+{% endblock %}
+

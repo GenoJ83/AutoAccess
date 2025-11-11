@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h2>Edit User – {{ user.username }}</h2>
+  <p class="muted">Update profile fields. Changing department/role will reassign groups and permissions.</p>
+  </section>
+<article class="metric" style="margin-top:1rem; padding:1rem;">
+  <form method="post">
+    <div class="grid">
+      <label>
+        Full name
+        <input type="text" name="name" value="{{ user.name }}" required>
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" value="{{ user.email }}" required>
+      </label>
+    </div>
+    <div class="grid">
+      <label>
+        Department
+        <select name="department" required>
+          {% for dept in ['Finance','HR','Marketing','IT','Intern'] %}
+            <option value="{{ dept }}" {% if user.department == dept %}selected{% endif %}>{{ dept }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        Role
+        <input type="text" name="role" value="{{ user.role }}" required>
+      </label>
+      <label>
+        Status
+        <select name="status" required>
+          <option value="active" {% if user.status == 'active' %}selected{% endif %}>active</option>
+          <option value="inactive" {% if user.status == 'inactive' %}selected{% endif %}>inactive</option>
+        </select>
+      </label>
+    </div>
+    <button type="submit" style="background: var(--brand-2); border-color: var(--brand-2);">Save Changes</button>
+    <a href="{{ url_for('dashboard') }}" role="button" class="secondary">Cancel</a>
+  </form>
+</article>
+<section style="margin-top:1rem;">
+  <h3>Access Preview</h3>
+  <ul>
+    <li><strong>OU:</strong> {{ user.ou }}</li>
+    <li><strong>Groups:</strong> {{ user.groups|join(', ') }}</li>
+    <li><strong>Permissions:</strong> {{ user.permissions|join(', ') }}</li>
+  </ul>
+</section>
+{% endblock %}
+

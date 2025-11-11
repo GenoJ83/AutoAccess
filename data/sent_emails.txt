@@ -1,0 +1,98 @@
+[2025-11-11T14:02:19.418699+00:00] FROM: it-automation@company.com TO: john.doe@company.com
+SUBJECT: Welcome to Company – Your Account Details
+BODY:
+Hello John Doe,
+
+Your company account has been created.
+Username: john.doe
+Temporary Password: ER@#1hCKB9Kj
+Department: Finance
+Role: Analyst
+
+Please change your password on first login.
+
+— IT Automation
+
+------------------------------------------------------------
+[2025-11-11T14:02:19.487290+00:00] FROM: it-automation@company.com TO: jane.smith@company.com
+SUBJECT: Welcome to Company – Your Account Details
+BODY:
+Hello Jane Smith,
+
+Your company account has been created.
+Username: jane.smith
+Temporary Password: RjK^Bnfk07zR
+Department: HR
+Role: Coordinator
+
+Please change your password on first login.
+
+— IT Automation
+
+------------------------------------------------------------
+[2025-11-11T14:02:19.555544+00:00] FROM: it-automation@company.com TO: alex.kim@company.com
+SUBJECT: Welcome to Company – Your Account Details
+BODY:
+Hello Alex Kim,
+
+Your company account has been created.
+Username: alex.kim
+Temporary Password: 3!O%dQ9Oiwxn
+Department: Marketing
+Role: Intern
+
+Please change your password on first login.
+
+— IT Automation
+
+------------------------------------------------------------
+[2025-11-11T14:02:19.622424+00:00] FROM: it-automation@company.com TO: tom.lee@company.com
+SUBJECT: Welcome to Company – Your Account Details
+BODY:
+Hello Tom Lee,
+
+Your company account has been created.
+Username: tom.lee
+Temporary Password: oTcemWJ6yDRm
+Department: IT
+Role: Engineer
+
+Please change your password on first login.
+
+— IT Automation
+
+------------------------------------------------------------
+[2025-11-11T14:23:46.094513+00:00] FROM: it-automation@company.com TO: hr-ops@company.com
+SUBJECT: AutoAccess Run Summary — 0 created, 0 deactivated, 0 errors
+BODY:
+AutoAccess Summary
+
+Created: 0
+Deactivated: 0
+Errors: 0
+Processed at: 2025-11-11T14:23:46.094513
+
+------------------------------------------------------------
+[2025-11-11T14:23:46.098590+00:00] FROM: it-automation@company.com TO: it-automation@company.com
+SUBJECT: AutoAccess Run Summary — 0 created, 0 deactivated, 0 errors
+BODY:
+AutoAccess Summary
+
+Created: 0
+Deactivated: 0
+Errors: 0
+Processed at: 2025-11-11T14:23:46.094513
+
+------------------------------------------------------------
+[2025-11-11T15:00:39.672396+00:00] FROM: it-automation@company.com TO: john.doe@company.com
+SUBJECT: Your AutoAccess Login Code
+BODY:
+Your one-time code is: 753290
+This code expires when the browser session ends.
+------------------------------------------------------------
+[2025-11-11T15:04:36.970534+00:00] FROM: it-automation@company.com TO: john.doe@company.com
+SUBJECT: Your AutoAccess Login Code
+BODY:
+Your one-time code is: 870497
+This code expires when the browser session ends.
+------------------------------------------------------------

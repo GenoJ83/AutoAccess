@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h2>Notify – {{ user.username }}</h2>
+  <p class="muted">Send a message to {{ user.email }}. Emails are simulated to the file log and console.</p>
+</section>
+<article class="metric" style="margin-top:1rem; padding:1rem;">
+  <form method="post">
+    <label>
+      Subject
+      <input type="text" name="subject" required placeholder="Subject">
+    </label>
+    <label>
+      Message
+      <textarea name="body" rows="8" required placeholder="Write your message..."></textarea>
+    </label>
+    <button type="submit" style="background: var(--brand-1); border-color: var(--brand-1);">Send Notification</button>
+    <a href="{{ url_for('dashboard') }}" role="button" class="secondary">Cancel</a>
+  </form>
+</article>
+{% endblock %}
+

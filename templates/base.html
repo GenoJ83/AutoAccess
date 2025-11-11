@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AutoAccess</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+      :root {
+        --brand-1: #2563eb;  /* bright blue */
+        --brand-2: #22c55e;  /* lime green */
+        --brand-3: #f59e0b;  /* amber */
+        --brand-4: #ef4444;  /* red */
+        --text-muted: #374151;
+        --card-bg: #ffffff;
+      }
+      body {
+        background: #f7fafc;
+        color: #0f172a;
+        font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      }
+      .hero {
+        background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(34,197,94,0.12));
+        border: 1px solid rgba(0,0,0,0.04);
+        border-radius: 14px;
+        padding: 1.5rem 1.25rem;
+      }
+      .metric {
+        background: var(--card-bg);
+        border: 1px solid rgba(0,0,0,0.06);
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      }
+      .metric h1 { margin: 0.25rem 0 0; font-size: 2rem; }
+      .metric.blue { border-top: 4px solid var(--brand-1); }
+      .metric.green { border-top: 4px solid var(--brand-2); }
+      .metric.amber { border-top: 4px solid var(--brand-3); }
+      .metric.red { border-top: 4px solid var(--brand-4); }
+      .badge-success { background: var(--brand-2); color: white; padding: 0.35rem 0.6rem; border-radius: 0.5rem; }
+      .badge-error { background: var(--brand-4); color: white; padding: 0.35rem 0.6rem; border-radius: 0.5rem; }
+      .muted { color: var(--text-muted); }
+      table { font-size: 0.95rem; }
+      header { margin-bottom: 1rem; }
+      nav ul li a[role="button"], a[role="button"] { border-radius: 999px; }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <nav>
+          <ul>
+            <li><strong style="color:var(--brand-1)">AutoAccess</strong></li>
+          </ul>
+          <ul>
+            <li><a href="{{ url_for('landing') }}">Home</a></li>
+            <li><a href="{{ url_for('employee_login') }}">Employee Portal</a></li>
+            {% if session.get('is_admin') %}
+              <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+              <li><a href="{{ url_for('upload') }}">Upload</a></li>
+              <li><a href="{{ url_for('download_sample') }}">Sample Excel</a></li>
+              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+              <li><a href="{{ url_for('login') }}">Admin Login</a></li>
+            {% endif %}
+            {% if session.get('is_employee') %}
+              <li><a href="{{ url_for('employee_dashboard') }}">My Account</a></li>
+              <li><a href="{{ url_for('employee_logout') }}">Logout</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </header>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <article class="{{ 'badge-success' if category == 'success' else 'badge-error' }}">{{ message }}</article>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+      <footer class="muted" style="margin-top:2rem;"></footer>
+    </main>
+  </body>
+  </html>
+
+

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h2>My Account</h2>
+  <p class="muted">View your account details and access assignments.</p>
+</section>
+<article class="metric" style="margin-top:1rem; padding:1rem;">
+  <div class="grid">
+    <div>
+      <strong>Name</strong>
+      <p>{{ user.name }}</p>
+    </div>
+    <div>
+      <strong>Email</strong>
+      <p>{{ user.email }}</p>
+    </div>
+    <div>
+      <strong>Username</strong>
+      <p>{{ user.username }}</p>
+    </div>
+  </div>
+  <div class="grid">
+    <div>
+      <strong>Department</strong>
+      <p>{{ user.department }}</p>
+    </div>
+    <div>
+      <strong>Role</strong>
+      <p>{{ user.role }}</p>
+    </div>
+    <div>
+      <strong>Status</strong>
+      <p>{{ user.status }}</p>
+    </div>
+  </div>
+  <div class="grid">
+    <div>
+      <strong>OU</strong>
+      <p>{{ user.ou }}</p>
+    </div>
+    <div>
+      <strong>Groups</strong>
+      <p>{{ user.groups|join(', ') }}</p>
+    </div>
+    <div>
+      <strong>Permissions</strong>
+      <p>{{ user.permissions|join(', ') }}</p>
+    </div>
+  </div>
+</article>
+{% endblock %}
+
