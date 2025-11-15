@@ -1,12 +1,17 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 {% block content %}
 <style>
-.landing-hero {
+body {
   background-image: url('/static/landing.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-color: #2563eb; /* Fallback color */
+  background-attachment: fixed;
+}
+
+.landing-hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -32,18 +37,6 @@
   color: white;
   max-width: 600px;
   padding: 2rem;
-  animation: fadeInUp 1.5s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .landing-content h1 {
@@ -58,6 +51,7 @@
   margin-bottom: 2rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   color: #ffffff;
+  font-family: 'Dancing Script', cursive;
 }
 </style>
 
@@ -68,7 +62,7 @@
       Automate onboarding/offboarding in seconds — upload HR spreadsheets, create accounts, assign roles, send welcome emails,
       and maintain a full audit trail. Bright, fast, and reliable.
     </p>
-    <a href="{{ url_for('login') }}" role="button" style="background: var(--brand-1); border-color: var(--brand-1); font-size: 1.1rem; padding: 0.75rem 1.5rem;"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
+    <a href="{{ url_for('login') }}" role="button" style="background: var(--brand-1); border-color: var(--brand-1); font-size: 1.1rem; padding: 0.75rem 1.5rem;">Admin Login</a>
   </div>
 </section>
 {% endblock %}
