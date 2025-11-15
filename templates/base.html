@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
       :root {
@@ -133,25 +134,25 @@
         <nav class="top-nav">
           <ul class="nav-group">
             <li class="logo">AutoAccess</li>
-            <li><a href="{{ url_for('landing') }}">Home</a></li>
+            <li><a href="{{ url_for('landing') }}"><i class="fas fa-home"></i> Home</a></li>
             {% if not session.get('is_employee') %}
-              <li><a href="{{ url_for('employee_login') }}">Employee Portal</a></li>
+              <li><a href="{{ url_for('employee_login') }}"><i class="fas fa-users"></i> Employee Portal</a></li>
             {% endif %}
           </ul>
           <ul class="nav-group">
             {% if session.get('is_admin') %}
-              <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-              <li><a href="{{ url_for('notifications') }}">Notifications</a></li>
-              <li><a href="{{ url_for('upload') }}">Upload</a></li>
-              <li><a href="{{ url_for('download_sample') }}">Sample Excel</a></li>
-              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+              <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+              <li><a href="{{ url_for('notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
+              <li><a href="{{ url_for('upload') }}"><i class="fas fa-upload"></i> Upload</a></li>
+              <li><a href="{{ url_for('download_sample') }}"><i class="fas fa-download"></i> Sample Excel</a></li>
+              <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             {% else %}
-              <li><a href="{{ url_for('login') }}">Admin Login</a></li>
+              <li><a href="{{ url_for('login') }}"><i class="fas fa-user-shield"></i> Admin Login</a></li>
             {% endif %}
             {% if session.get('is_employee') %}
-              <li><a href="{{ url_for('employee_dashboard') }}">My Account</a></li>
-              <li><a href="{{ url_for('employee_notifications') }}">Notifications</a></li>
-              <li><a href="{{ url_for('employee_logout') }}">Logout</a></li>
+              <li><a href="{{ url_for('employee_dashboard') }}"><i class="fas fa-user"></i> My Account</a></li>
+              <li><a href="{{ url_for('employee_notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
+              <li><a href="{{ url_for('employee_logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             {% endif %}
           </ul>
         </nav>
