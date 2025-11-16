@@ -45,23 +45,21 @@ def send_email_simulated(to_address: str, subject: str, body: str) -> bool:
             }
 
             # Infobip Email API v3 requires multipart/form-data
-            # Send individual fields directly in form data
-            data = {
-                "from": EMAIL_FROM,
-                "to": to_address,
-                "subject": subject,
-                "text": body
+            # Send individual fields as form data using files parameter to force multipart/form-data
+            files = {
+                "from": (None, EMAIL_FROM),
+                "to": (None, to_address),
+                "subject": (None, subject),
+                "text": (None, body)
             }
-            
-            # Use data parameter for form fields (requests will send as multipart/form-data)
-            files = None
 
             print(f"Attempting to send email via Infobip to {to_address}...")
             print(f"URL: {url}")
             print(f"From: {EMAIL_FROM}")
-            print(f"Data: {data}")
+            print(f"To: {to_address}")
+            print(f"Subject: {subject}")
             
-            response = requests.post(url, headers=headers, data=data, files=files, timeout=30)
+            response = requests.post(url, headers=headers, files=files, timeout=30)
             
             print(f"Infobip Response Status: {response.status_code}")
             print(f"Infobip Response: {response.text}")
