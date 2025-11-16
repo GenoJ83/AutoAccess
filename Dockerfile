@@ -33,9 +33,9 @@ ENV FLASK_ENV=production
 # Expose ports
 EXPOSE 5000 8501
 
-# Health check
+# Health check (uses default port, Railway will override PORT at runtime)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:${PORT:-5000}/ || exit 1
+    CMD curl -f http://localhost:5000/ || exit 1
 
 # Run the application with Gunicorn for production
 # Railway will use the PORT environment variable automatically
