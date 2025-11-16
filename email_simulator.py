@@ -74,8 +74,13 @@ def send_email_simulated(to_address: str, subject: str, body: str) -> bool:
                         msg_status = response_data["messages"][0].get("status", {})
                         status_group = msg_status.get("groupId", 0)
                         # GroupId 1 = PENDING, 3 = DELIVERED, 5 = REJECTED
-                        if status_group in [1, 3]:
-                            print(f"✓ Email accepted by Infobip (status group: {status_group})")
+                        if status_group == 1:
+                            print(f"⚠ Email accepted by Infobip but status is PENDING")
+                            print(f"  This usually means the sender email ({EMAIL_FROM}) is not verified in Infobip")
+                            print(f"  Please verify the sender email in Infobip dashboard: https://portal.infobip.com")
+                            print(f"  Email may not be delivered until sender is verified")
+                        elif status_group == 3:
+                            print(f"✓ Email delivered by Infobip (status group: {status_group})")
                         else:
                             print(f"⚠ Email status group: {status_group} - {msg_status.get('groupName', 'Unknown')}")
                 except json.JSONDecodeError:
