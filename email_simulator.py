@@ -44,41 +44,72 @@ def send_email_simulated(to_address: str, subject: str, body: str) -> bool:
                 "Accept": "application/json"
             }
 
-            # Try JSON payload first (cleaner format)
+            # Infobip Email API v3 expects messages array format
             payload = {
-                "from": EMAIL_FROM,
-                "to": to_address,
-                "subject": subject,
-                "text": body
+                "messages": [
+                    {
+                        "from": EMAIL_FROM,
+                        "to": to_address,
+                        "subject": subject,
+                        "text": body
+                    }
+                ]
             }
             headers["Content-Type"] = "application/json"
 
+            print(f"Attempting to send email via Infobip to {to_address}...")
+            print(f"URL: {url}")
+            print(f"From: {EMAIL_FROM}")
+            
             response = requests.post(url, headers=headers, json=payload, timeout=30)
             
-            # If JSON fails with 415, try form-data format
-            if response.status_code == 415:
-                headers.pop("Content-Type", None)
-                files = {
-                    "from": (None, EMAIL_FROM),
-                    "to": (None, to_address),
-                    "subject": (None, subject),
-                    "text": (None, body)
-                }
-                response = requests.post(url, headers=headers, files=files, timeout=30)
             print(f"Infobip Response Status: {response.status_code}")
             print(f"Infobip Response: {response.text}")
-            response.raise_for_status()
-
-            print(f"✓ Email sent successfully to {to_address}: {subject}")
+            
+            # Check for successful response (200 or 201)
+            if response.status_code in [200, 201]:
+                try:
+                    response_data = response.json()
+                    print(f"Infobip Response Data: {json.dumps(response_data, indent=2)}")
+                    # Check message status if available
+                    if "messages" in response_data and len(response_data["messages"]) > 0:
+                        msg_status = response_data["messages"][0].get("status", {})
+                        status_group = msg_status.get("groupId", 0)
+                        # GroupId 1 = PENDING, 3 = DELIVERED, 5 = REJECTED
+                        if status_group in [1, 3]:
+                            print(f"✓ Email accepted by Infobip (status group: {status_group})")
+                        else:
+                            print(f"⚠ Email status group: {status_group} - {msg_status.get('groupName', 'Unknown')}")
+                except json.JSONDecodeError:
+                    print(f"⚠ Could not parse response as JSON, but status code indicates success")
+                
+                print(f"✓ Email sent successfully to {to_address}: {subject}")
+            else:
+                # Non-success status code - raise error
+                response.raise_for_status()
             # Always log to file on success
             with EMAIL_LOG.open("a", encoding="utf-8") as f:
                 f.write(f"[SENT] {log_entry}")
             return True
-        except requests.exceptions.RequestException as e:
-            error_msg = f"Failed to send email via Infobip to {to_address}: {e}"
+        except requests.exceptions.HTTPError as e:
+            error_msg = f"HTTP error sending email via Infobip to {to_address}: {e}"
             print(f"✗ {error_msg}")
             if hasattr(e, 'response') and e.response is not None:
-                print(f"  Response: {e.response.text}")
+                try:
+                    error_detail = e.response.json()
+                    print(f"  Error details: {json.dumps(error_detail, indent=2)}")
+                except:
+                    print(f"  Error response: {e.response.text}")
+                print(f"  Status code: {e.response.status_code}")
+            # Log failure
+            with EMAIL_LOG.open("a", encoding="utf-8") as f:
+                f.write(f"[FAILED] {error_msg}\n{log_entry}")
+            return False
+        except requests.exceptions.RequestException as e:
+            error_msg = f"Request error sending email via Infobip to {to_address}: {e}"
+            print(f"✗ {error_msg}")
+            print(f"  URL attempted: {url}")
+            print(f"  Check: INFOBIP_API_KEY is set, INFOBIP_BASE_URL is correct, network connectivity")
             # Log failure
             with EMAIL_LOG.open("a", encoding="utf-8") as f:
                 f.write(f"[FAILED] {error_msg}\n{log_entry}")
