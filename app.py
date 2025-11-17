@@ -91,12 +91,15 @@ def create_app() -> Flask:
                     # Keep original if parsing fails
                     pass
 
+        # Calculate deactivated count from current user status
+        deactivated_count = sum(1 for user in users_records if user.get("status") == "inactive")
+
         return render_template(
             "index.html",
             users=users_records,
             users_count=users_count,
             emails_sent=emails_sent,
-            deactivated=deactivated,
+            deactivated=deactivated_count,
             last_processed=last_processed,
         )
 
